@@ -1,0 +1,13 @@
+{
+	"requestId": "",
+	"responseId": "",
+	"response": [
+		{
+			"company": "Alitalia",
+			"flightNumber": "AZ3654",
+			"date": "2020-12-30",
+			"hour": "18:45",
+			"price": 250.25
+		}
+	]
+}

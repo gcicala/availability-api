@@ -1,0 +1,21 @@
+{
+	"bookingId": "",
+	"holder": {
+		"name": "Mario",
+		"lastName": "Rossi",
+		"address": "Via Roma 15",
+		"postalCode":"00100",
+		"country": "IT",
+		"email": "mario.rossi@rossi.it",
+		"telephones": ["3489668654","067896686"]
+	},
+	"flights": [
+		{
+			"company": "Alitalia",
+			"flightNumber": "AZ3654",
+			"date": "2020-12-30",
+			"hour": "18:45",
+			"price": 250.25
+		}
+	]
+}

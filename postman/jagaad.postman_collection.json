@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "a1efe9b5-3a4b-4458-abfd-171f321cf5e5",
+		"name": "jagaad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "checkavailability",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"AVAILABILITY\",\r\n\"payload\":{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/availability",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"availability"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "checkavailability",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"AVAILABILITY\",\r\n\"payload\":{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/availability",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"availability"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Jan 2021 15:32:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"response\": [\n        {\n            \"company\": \"Alitalia\",\n            \"flightNumber\": \"AZ3654\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"price\": 250.25\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "booking find",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/booking/abf456",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"booking",
+						"abf456"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "bookingfind",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/booking/abf456",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"abf456"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Jan 2021 15:36:58 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"bookingId\": \"ABF456\",\n    \"holder\": {\n        \"name\": \"Mario\",\n        \"lastName\": \"Rossi\",\n        \"address\": \"Via Roma 15\",\n        \"postalCode\": \"00100\",\n        \"country\": \"IT\",\n        \"email\": \"mario.rossi@rossi.it\",\n        \"telephones\": [\n            \"3489668654\",\n            \"067896686\"\n        ]\n    },\n    \"flights\": [\n        {\n            \"company\": \"Alitalia\",\n            \"flightNumber\": \"AZ3654\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"price\": 250.25\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "booking update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n\"payload\":{\r\n    \"bookingId\": \"ABF456\",\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        }\r\n    ]\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/booking/abf456",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"booking",
+						"abf456"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "booking update",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n\"payload\":{\r\n    \"bookingId\": \"ABF456\",\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        }\r\n    ]\r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/booking/abf456",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"abf456"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Jan 2021 15:38:19 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"requestId\": \"abf456\",\n    \"responseId\": \"3877c3ff-2feb-471c-8dca-800c3f6907ef\",\n    \"response\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "booking create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n\"payload\":{\r\n    \"bookingId\": null,\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        }\r\n    ]\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/booking",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"booking"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "booking create",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n\"payload\":{\r\n    \"bookingId\": null,\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        }\r\n    ]\r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/booking",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"booking"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Jan 2021 15:39:01 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"requestId\": \"1\",\n    \"responseId\": \"c96b8a7d-d0d8-4261-b07c-28153fb0d4db\",\n    \"response\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "booking delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/booking/abf456",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"booking",
+						"abf456"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "bookingdelete",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/booking/abf456",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"abf456"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Jan 2021 15:53:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"requestId\": \"abf456\",\n    \"responseId\": \"93afe058-fb19-4ce0-a7eb-d31ee4bbd9f3\",\n    \"response\": true\n}"
+				}
+			]
+		}
+	]
+}
