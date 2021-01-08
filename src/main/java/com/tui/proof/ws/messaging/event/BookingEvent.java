@@ -30,10 +30,10 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class BookingEvent<T> implements Message {
 
-	protected String id;
+	private String id;
 
-	protected T payload;
+	private T payload;
 
-	protected EventType eventType;
+	private EventType eventType;
 
 }

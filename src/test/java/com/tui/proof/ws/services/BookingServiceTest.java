@@ -3,11 +3,18 @@
  */
 package com.tui.proof.ws.services;
 
-import static com.tui.proof.ws.utils.Utils.loadResponse;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Currency;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +27,10 @@ import com.tui.proof.ws.messaging.event.BookingCreateEvent;
 import com.tui.proof.ws.messaging.event.BookingEventDispatcher;
 import com.tui.proof.ws.messaging.event.BookingUpdateEvent;
 import com.tui.proof.ws.models.messaging.EventType;
-import com.tui.proof.ws.models.web.AvailabilityRequest;
 import com.tui.proof.ws.models.web.AvailabilityResponse;
 import com.tui.proof.ws.models.web.Booking;
+import com.tui.proof.ws.models.web.BookingAvailability;
+import com.tui.proof.ws.models.web.BookingHolder;
 import com.tui.proof.ws.models.web.BookingResponse;
 import com.tui.proof.ws.models.web.Flight;
 import com.tui.proof.ws.models.web.Paxe;
@@ -58,7 +66,7 @@ public class BookingServiceTest {
 		BookingAvailabilityEvent event = new BookingAvailabilityEvent();
 		event.setId("FFAA12");
 		event.setEventType(EventType.AVAILABILITY);
-		AvailabilityRequest payload = new AvailabilityRequest();
+		BookingAvailability payload = new BookingAvailability();
 		payload.setDestinationAirport("Amsterdam");
 		payload.setEndDate(LocalDate.now().plusMonths(2l));
 		payload.setOriginAirport("Rome");
@@ -70,7 +78,6 @@ public class BookingServiceTest {
 		payload.setPaxes(paxes);
 		event.setPayload(payload);
 
-		Flight flight = new Flight();
 		AvailabilityResponse checkAvailability = bookingService.checkAvailability(event);
 		assertNotNull(checkAvailability);
 	}
@@ -81,16 +88,21 @@ public class BookingServiceTest {
 	 */
 	@Test
 	public void testBookingUpdate() throws Throwable {
-		BookingUpdateEvent event = new BookingUpdateEvent();
-		event.setEventType(EventType.UPDATE_BOOKING);
-		event.setId("456FGB");
+		try {
+			BookingUpdateEvent event = new BookingUpdateEvent();
+			event.setEventType(EventType.UPDATE_BOOKING);
+			event.setId("456FGB");
 
-		Booking response = loadResponse("/" + Booking.class.getSimpleName() + ".json", Booking.class, true);
-		response.setBookingId(UUID.randomUUID().toString());
-		event.setPayload(response);
+			Booking booking = createBookingMock();
 
-		BookingResponse updateResponse = bookingService.bookingUpdate(event, "456FGB");
-		assertNotNull(updateResponse);
+			event.setPayload(booking);
+
+			BookingResponse updateResponse = bookingService.bookingUpdate(event, "456FGB");
+			assertNotNull(updateResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -111,16 +123,21 @@ public class BookingServiceTest {
 	 */
 	@Test
 	public void testBookingCreate() throws Throwable {
-		BookingCreateEvent event = new BookingCreateEvent();
-		event.setEventType(EventType.CREATE_BOOKING);
-		event.setId("456FGB");
+		try {
 
-		Booking response = loadResponse("/" + Booking.class.getSimpleName() + ".json", Booking.class, true);
-		response.setBookingId(UUID.randomUUID().toString());
-		event.setPayload(response);
+			BookingCreateEvent event = new BookingCreateEvent();
+			event.setEventType(EventType.CREATE_BOOKING);
+			event.setId("456FGB");
 
-		BookingResponse createResponse = bookingService.bookingCreate(event);
-		assertNotNull(createResponse);
+			Booking booking = createBookingMock();
+			event.setPayload(booking);
+
+			BookingResponse createResponse = bookingService.bookingCreate(event);
+			assertNotNull(createResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	/**
@@ -133,6 +150,35 @@ public class BookingServiceTest {
 		BookingResponse updateResponse = bookingService.bookingFind("456FGB");
 		assertNotNull(updateResponse);
 
+	}
+
+	private final Booking createBookingMock() {
+		Booking booking = new Booking();
+		booking.setBookingId(UUID.randomUUID().toString());
+
+		BookingHolder holder = new BookingHolder();
+		holder.setAddress("Via Roma 12");
+		holder.setCountry("IT");
+		holder.setEmail("mario.rossi@rossi.it");
+		holder.setLastName("Rossi");
+		holder.setName("Mario");
+		holder.setPostalCode("00100");
+		holder.setTelephones(Arrays.asList("3489665214", "3256566265"));
+		booking.setHolder(holder);
+
+		Flight flight = new Flight();
+		flight.setCompany("QatarAirLines");
+		flight.setCurrency(Currency.getInstance("USD"));
+		flight.setDate(LocalDate.now().plusMonths(1l));
+		flight.setFlightNumber("QA" + ThreadLocalRandom.current().nextInt(1000, 9999));
+		flight.setHour(LocalTime.now().minusHours(2l));
+		BigDecimal price = BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(30.00, 999.99));
+		MathContext mc_HALF_DOWN = new MathContext(1, RoundingMode.HALF_DOWN);
+		flight.setPrice(price.round(mc_HALF_DOWN));
+
+		List<Flight> flights = Arrays.asList(flight);
+		booking.setFlights(flights);
+		return booking;
 	}
 
 }

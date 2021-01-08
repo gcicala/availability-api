@@ -20,6 +20,4 @@ package com.tui.proof.ws.models.messaging;
  */
 public interface Message {
 
-	EventType getEventType();
-
 }

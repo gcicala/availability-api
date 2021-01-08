@@ -3,7 +3,9 @@
  */
 package com.tui.proof.ws.models.messaging;
 
-import com.tui.proof.ws.models.web.Response;
+import com.tui.proof.ws.exception.ServiceException;
+import com.tui.proof.ws.messaging.channel.ChannelType;
+import com.tui.proof.ws.messaging.event.BookingEvent;
 
 /**
  * 
@@ -20,10 +22,10 @@ import com.tui.proof.ws.models.web.Response;
  * @Class : com.tui.proof.ws.models.messaging.Channel
  * 
  */
-public interface Channel<E extends Message> {
+public interface Channel<E extends BookingEvent<?>> {
 
-	public EventType getEventType();
+	public ChannelType getChannelType();
 
 	public void dispatch(
-			E message);
+			E message) throws ServiceException;
 }

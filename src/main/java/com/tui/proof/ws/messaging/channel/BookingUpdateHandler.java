@@ -5,10 +5,9 @@ package com.tui.proof.ws.messaging.channel;
 
 import org.springframework.stereotype.Component;
 
-import com.tui.proof.ws.messaging.event.BookingDeleteEvent;
-import com.tui.proof.ws.messaging.event.BookingUpdateEvent;
+import com.tui.proof.ws.messaging.event.BookingEvent;
+import com.tui.proof.ws.messaging.event.BookingFlightUpdateEvent;
 import com.tui.proof.ws.models.messaging.Channel;
-import com.tui.proof.ws.models.messaging.EventType;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -29,16 +28,28 @@ import lombok.extern.log4j.Log4j2;
  */
 @Component
 @Log4j2
-public class BookingUpdateHandler implements Channel<BookingUpdateEvent> {
+public class BookingUpdateHandler implements Channel<BookingEvent<?>> {
 
 	@Override
-	public EventType getEventType() {
-		return EventType.UPDATE_BOOKING;
+	public ChannelType getChannelType() {
+		return ChannelType.UPDATE_CHANNEL;
 	}
 
 	@Override
 	public void dispatch(
-			BookingUpdateEvent message) {
-		log.debug("Message {} payload {}", getEventType().name(), message.getPayload());
+			BookingEvent<?> message) {
+		log.debug("Message event {} ChannelType {} payload {}", message.getEventType().name(), message.getEventType().getChannelType().name(), message.getPayload());
+		switch (message.getEventType()) {
+		case UPDATE_BOOKING:
+
+			break;
+		case UPDATE_BOOKING_FLIGHT:
+			BookingFlightUpdateEvent event = (BookingFlightUpdateEvent) message;
+			break;
+		default:
+			break;
+		}
+
 	}
+
 }

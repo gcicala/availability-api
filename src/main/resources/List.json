@@ -1,0 +1,34 @@
+[
+	{
+		"company": "Alitalia",
+		"flightNumber": "AZ3654",
+		"date": "2021-01-20",
+		"hour": "18:45",
+		"price": "180.30",
+		"currency": "USD"
+	},
+	{
+		"company": "RyanAir",
+		"flightNumber": "RY7394",
+		"date": "2021-01-30",
+		"hour": "18:45",
+		"price": "180.30",
+		"currency": "USD"
+	},
+	{
+		"company": "QatarAirLines",
+		"flightNumber": "QA9875",
+		"date": "2020-12-30",
+		"hour": "18:45",
+		"price": "180.30",
+		"currency": "USD"
+	},
+	{
+		"company": "Alitalia",
+		"flightNumber": "AZ7562",
+		"date": "2020-12-30",
+		"hour": "18:45",
+		"price": "180.30",
+		"currency": "USD"
+	}
+]

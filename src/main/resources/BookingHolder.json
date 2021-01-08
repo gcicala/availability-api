@@ -1,0 +1,12 @@
+{
+	"name": "Mario",
+	"lastName": "Rossi",
+	"address": "Via Roma 15",
+	"postalCode": "00100",
+	"country": "IT",
+	"email": "mario.rossi@rossi.it",
+	"telephones": [
+		"3489668654",
+		"067896686"
+	]
+}

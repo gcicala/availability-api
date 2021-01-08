@@ -5,7 +5,7 @@ package com.tui.proof.ws.messaging.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tui.proof.ws.models.web.BookingAvailability;
+import com.tui.proof.ws.models.web.Flight;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,13 +22,15 @@ import lombok.EqualsAndHashCode;
  * 
  * @Project : availability-api
  * 
- * @Class : com.tui.proof.ws.messaging.event.BookingCreateEvent
+ * @Class : com.tui.proof.ws.messaging.event.BookingFlightUpdateEvent
  * 
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BookingAvailabilityEvent extends BookingEvent<BookingAvailability> {
+public class BookingFlightUpdateEvent extends BookingEvent<Flight> {
+
+	private String bookingId;
 
 }

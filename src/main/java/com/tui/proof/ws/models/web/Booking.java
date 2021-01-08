@@ -5,6 +5,8 @@ package com.tui.proof.ws.models.web;
 
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -30,9 +32,11 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Booking {
 
-	String bookingId;
+	private String bookingId;
 
+	@NotEmpty
 	private BookingHolder holder;
 
+	@NotEmpty
 	private List<Flight> flights;
 }

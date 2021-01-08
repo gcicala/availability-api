@@ -3,6 +3,9 @@
  */
 package com.tui.proof.ws.models.web;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -20,7 +23,7 @@ import lombok.Data;
  * 
  * @Project : availability-api
  * 
- * @Class : com.tui.proof.ws.models.web.AvailabilityResponse
+ * @Class : com.tui.proof.ws.models.web.Response
  * 
  */
 @Data
@@ -28,10 +31,13 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class Response<T> {
 
-	protected String requestId;
+	@NotBlank
+	private String requestId;
 
-	protected String responseId;
-	
-	protected T response;
+	@NotBlank
+	private String responseId;
+
+	@NotNull
+	private T response;
 
 }

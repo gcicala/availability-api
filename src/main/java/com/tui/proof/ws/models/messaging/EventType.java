@@ -3,6 +3,8 @@
  */
 package com.tui.proof.ws.models.messaging;
 
+import com.tui.proof.ws.messaging.channel.ChannelType;
+
 import lombok.Getter;
 
 /**
@@ -22,14 +24,23 @@ import lombok.Getter;
  */
 @Getter
 public enum EventType {
-	FIND_BOOKING, 
-	
-	CREATE_BOOKING, 
-	
-	UPDATE_BOOKING, 
-	
-	DELETE_BOOKING, 
-	
-	AVAILABILITY;
+	FIND_BOOKING(ChannelType.FIND_CHANNEL),
+
+	CREATE_BOOKING(ChannelType.CREATE_CHANNEL),
+
+	UPDATE_BOOKING(ChannelType.UPDATE_CHANNEL),
+
+	UPDATE_BOOKING_FLIGHT(ChannelType.UPDATE_CHANNEL),
+
+	DELETE_BOOKING(ChannelType.DELETE_CHANNEL),
+
+	AVAILABILITY(ChannelType.FIND_CHANNEL);
+
+	private ChannelType channelType;
+
+	private EventType(
+		ChannelType channelType) {
+		this.channelType = channelType;
+	}
 
 }

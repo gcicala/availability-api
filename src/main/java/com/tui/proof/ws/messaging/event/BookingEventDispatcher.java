@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tui.proof.ws.exception.ServiceException;
+import com.tui.proof.ws.messaging.channel.ChannelType;
 import com.tui.proof.ws.models.messaging.Channel;
 import com.tui.proof.ws.models.messaging.DynamicRouter;
-import com.tui.proof.ws.models.messaging.EventType;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -37,22 +37,26 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class BookingEventDispatcher implements DynamicRouter<BookingEvent<?>> {
 
-	private Map<EventType, Channel> handlers = new HashMap<EventType, Channel>();
+	private Map<ChannelType, Channel<BookingEvent<?>>> handlers = new HashMap<ChannelType, Channel<BookingEvent<?>>>();
 
 	@Autowired
 	public BookingEventDispatcher(
-		List<? extends Channel> eventList) {
-		for (Channel channel : eventList) {
-			log.debug("Channel Class {} EventType {} EventClass {}", channel.getClass(), channel.getEventType());
-			this.handlers.put(channel.getEventType(), channel);
+		List<? extends Channel<BookingEvent<?>>> eventList) {
+		for (Channel<BookingEvent<?>> channel : eventList) {
+			log.debug("Channel Class {} ChannelType {} ", channel.getClass(), channel.getChannelType());
+			this.handlers.put(channel.getChannelType(), channel);
 		}
-
 	}
 
 	@Override
 	public void dispatch(
 			BookingEvent<?> content) throws ServiceException {
-		Optional.of(handlers.get(content.getEventType())).orElseThrow(() -> new ServiceException("No Channel for " + content.getEventType().name(), "INVALID_HANDLER")).dispatch(content);
-
+		log.debug("Dispatching Message event {} ChannelType {} payload {}", content.getEventType().name(), content.getEventType().getChannelType().name(), content.getPayload());
+		Channel<BookingEvent<?>> channel = Optional.ofNullable(handlers.get(content.getEventType().getChannelType()))
+				.orElseThrow(() -> new ServiceException("No Channel " + content.getEventType().getChannelType().name() + " for EventType " + content.getEventType().name(), "INVALID_HANDLER"));
+		if (content.getEventType().getChannelType().compareTo(channel.getChannelType()) != 0) {
+			throw new ServiceException("Invalid handler request " + content.getEventType().getChannelType() + " and found " + channel.getChannelType().name(), "INVALID_HANDLER");
+		}
+		channel.dispatch(content);
 	}
 }

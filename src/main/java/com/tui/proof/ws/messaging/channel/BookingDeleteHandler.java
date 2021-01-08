@@ -3,12 +3,11 @@
  */
 package com.tui.proof.ws.messaging.channel;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.tui.proof.ws.messaging.event.BookingDeleteEvent;
+import com.tui.proof.ws.exception.ServiceException;
+import com.tui.proof.ws.messaging.event.BookingEvent;
 import com.tui.proof.ws.models.messaging.Channel;
-import com.tui.proof.ws.models.messaging.EventType;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -29,16 +28,17 @@ import lombok.extern.log4j.Log4j2;
  */
 @Component
 @Log4j2
-public class BookingDeleteHandler implements Channel<BookingDeleteEvent> {
+public class BookingDeleteHandler implements Channel<BookingEvent<?>> {
 
 	@Override
-	public EventType getEventType() {
-		return EventType.DELETE_BOOKING;
+	public ChannelType getChannelType() {
+		return ChannelType.DELETE_CHANNEL;
 	}
 
 	@Override
 	public void dispatch(
-			BookingDeleteEvent message) {
-		log.debug("Message {} payload {}", getEventType().name(), message.getPayload());
+			BookingEvent<?> message) throws ServiceException {
+		log.debug("Message event {} ChannelType {} payload {}", message.getEventType().name(), message.getEventType().getChannelType().name(), message.getPayload());
+
 	}
 }

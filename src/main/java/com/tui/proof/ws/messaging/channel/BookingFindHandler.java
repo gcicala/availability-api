@@ -3,12 +3,13 @@
  */
 package com.tui.proof.ws.messaging.channel;
 
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import com.tui.proof.ws.exception.ServiceException;
+import com.tui.proof.ws.messaging.event.BookingAvailabilityEvent;
+import com.tui.proof.ws.messaging.event.BookingEvent;
 import com.tui.proof.ws.messaging.event.BookingFindEvent;
 import com.tui.proof.ws.models.messaging.Channel;
-import com.tui.proof.ws.models.messaging.EventType;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -29,16 +30,27 @@ import lombok.extern.log4j.Log4j2;
  */
 @Component
 @Log4j2
-public class BookingFindHandler implements Channel<BookingFindEvent> {
+public class BookingFindHandler implements Channel<BookingEvent<?>> {
 
 	@Override
-	public EventType getEventType() {
-		return EventType.FIND_BOOKING;
+	public ChannelType getChannelType() {
+		return ChannelType.FIND_CHANNEL;
 	}
 
 	@Override
 	public void dispatch(
-			BookingFindEvent message) {
-		log.debug("Message {} payload {}", getEventType().name(), message.getPayload());
+			BookingEvent<?> message) throws ServiceException {
+
+		log.debug("Message event {} ChannelType {} payload {}", message.getEventType().name(), message.getEventType().getChannelType().name(), message.getPayload());
+		switch (message.getEventType()) {
+		case AVAILABILITY:
+			BookingAvailabilityEvent availabilityEvent = (BookingAvailabilityEvent) message;
+			break;
+		case FIND_BOOKING:
+			BookingFindEvent findEvent = (BookingFindEvent) message;
+			break;
+		default:
+			break;
+		}
 	}
 }

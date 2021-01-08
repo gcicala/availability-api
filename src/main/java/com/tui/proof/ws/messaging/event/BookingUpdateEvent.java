@@ -5,7 +5,6 @@ package com.tui.proof.ws.messaging.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tui.proof.ws.models.messaging.EventType;
 import com.tui.proof.ws.models.web.Booking;
 
 import lombok.Data;
@@ -32,5 +31,6 @@ import lombok.EqualsAndHashCode;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookingUpdateEvent extends BookingEvent<Booking> {
 
+	private String bookingId;
 
 }

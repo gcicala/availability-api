@@ -27,11 +27,11 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Paxe {
-	
+
 	private int infants;
-	
+
 	private int children;
-	
+
 	private int adults;
 
 }

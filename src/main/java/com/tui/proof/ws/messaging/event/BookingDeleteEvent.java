@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tui.proof.ws.models.messaging.EventType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,7 +31,5 @@ import lombok.EqualsAndHashCode;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookingDeleteEvent extends BookingEvent<LinkedHashMap<String, String>> {
-
-	
 
 }
