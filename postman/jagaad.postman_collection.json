@@ -6,10 +6,109 @@
 	},
 	"item": [
 		{
-			"name": "checkavailability",
+			"name": "authenticate",
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"tuiflyuser\",\r\n    \"password\":\"tuiflypassword\",\r\n    \"roles\":[\"ROLE_ADMIN\", \"ROLE_CLIENT\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/authenticate",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"authenticate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "authenticate",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"tuiflyuser\",\r\n    \"password\":\"tuiflypassword\",\r\n    \"roles\":[\"ROLE_ADMIN\", \"ROLE_CLIENT\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/authenticate",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 10 Jan 2021 19:54:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jwttoken\": \"eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDMwODQ2MywiZXhwIjoxNjEwMzEyMDYzfQ.KYjlzM5SSoy9N10wN9ZK0Z4KmCTtjloRUVFl6y0QY7VVdS8agA-_GnAwBQJUxXnZe1HeiBvKkUb1Z7M4kGRfrVn8OE-dUlJk3e9Djzvaz582i6KPG4dkJ1Qvs6vZymIqke9gOdaCfDa161yYHE-Y2TaoaswuUNMX0VSUNg2l4zPfDAWjzhQ2AR4m3waYz5UhtYN9yW4HUqjNGF-qpDWyuxzBFS7fQLBEhUBTNbboyw1cQwa7iq_MAByKihh7zH4JKV4KE1rqsk4R0-tfsN6il41NHRckY66n0H8uoxw3Nj0jmoXE-PWsKJiSgexTE_vbrRX1QTFXkZ4pV5DbotpyEQ\"\n}"
+				}
+			]
+		},
+		{
+			"name": "checkavailability",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwttoken",
+						"value": "{{jwtToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"AVAILABILITY\",\r\n\"payload\":{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"currency\":\"EUR\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n}",
@@ -102,7 +201,13 @@
 			"name": "booking create",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwtToken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n    \"payload\":{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
