@@ -1,0 +1,266 @@
+[
+	{
+		"bookingId": "85992b8a-e418-45d4-b65f-9b6dfe428bc7",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "Alitalia",
+				"flightNumber": "AZ3654",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"price": 250.25
+			}
+		]
+	},
+	{
+		"bookingId": "0df285f1-5b94-4f2f-adc0-db74782acfa7",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "7a3aede9-d8c5-4a7f-96e7-07479f9b9ebb",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "69de03df-a3d9-478d-ad73-d220db3eaff1",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "6cf4b8eb-fb64-44ae-ab64-fbbc23028c5c",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "44037dcb-5ffc-4720-b536-9653dce856f8",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "a106c01a-af79-4b66-87ac-35eb8ff17fab",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "a9233217-8ee2-403d-ad89-433c2c3a0f14",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "Alitalia",
+				"flightNumber": "AZ3654",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"price": 250.25
+			},
+			{
+				"company": "RyanAir",
+				"flightNumber": "RY7394",
+				"date": "2021-01-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			},
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	},
+	{
+		"bookingId": "b04bd86f-dcac-4425-9e65-1a7682bf4fb0",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 12",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489665214",
+				"3256566265"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA2283",
+				"date": "2021-02-08",
+				"hour": "23:36",
+				"currency": "USD",
+				"price": 5E+2
+			}
+		]
+	},
+	{
+		"bookingId": "d49a2c83-d05e-4494-bd41-710799990a7c",
+		"holder": {
+			"name": "Mario",
+			"lastName": "Rossi",
+			"address": "Via Roma 15",
+			"postalCode": "00100",
+			"country": "IT",
+			"email": "mario.rossi@rossi.it",
+			"telephones": [
+				"3489668654",
+				"067896686"
+			]
+		},
+		"flights": [
+			{
+				"company": "QatarAirLines",
+				"flightNumber": "QA9875",
+				"date": "2020-12-30",
+				"hour": "18:45",
+				"currency": "USD",
+				"price": 180.30
+			}
+		]
+	}
+]

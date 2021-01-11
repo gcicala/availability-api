@@ -1,0 +1,12 @@
+[
+	{
+		"jwtTokenBookingholderId": "4b6294be-fb43-4327-86b8-b30f151171b6",
+		"email": "mario.rossi@rossi.it",
+		"username": "tuiflyuser",
+		"password": "$2a$12$y6VgMvRlBenAMCtohvumNevSZg4TIXvriisFCPbgyzrxz1ZVFG2tq",
+		"roles": [
+			"ROLE_ADMIN",
+			"ROLE_CLIENT"
+		]
+	}
+]

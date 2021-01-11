@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -86,7 +87,7 @@ public class FooControllerTest {
 		paxes.setInfants(0);
 		payload.setPaxes(paxes);
 		event.setPayload(payload);
-		List<Flight> flights = Arrays.asList(loadJSON("/" + Flight.class.getSimpleName() + ".json", Flight.class, true));
+		List<Flight> flights = Arrays.asList(loadJSON(Paths.get("./src/main/resources/data").toFile(), Flight.class.getSimpleName() + ".json", Flight.class));
 		AvailabilityResponse availabilityResponse = new AvailabilityResponse();
 		availabilityResponse.setResponse(flights);
 		availabilityResponse.setRequestId(event.getId());

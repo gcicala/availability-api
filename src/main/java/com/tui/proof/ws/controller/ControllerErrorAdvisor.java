@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,5 +56,13 @@ public class ControllerErrorAdvisor {
 			ServiceException ex) {
 		ErrorResponse resp = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
 		return new ResponseEntity<ErrorResponse>(resp, ex.getErrorStatus());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(BadCredentialsException.class)
+	protected ResponseEntity<ErrorResponse> serviceBadCredentialsExceptionHandler(
+			BadCredentialsException ex) {
+		ErrorResponse resp = new ErrorResponse("BAD_CREDENTIAL", ex.getMessage());
+		return new ResponseEntity<ErrorResponse>(resp, HttpStatus.BAD_REQUEST);
 	}
 }

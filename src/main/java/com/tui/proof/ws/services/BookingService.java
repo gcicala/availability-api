@@ -6,7 +6,7 @@ package com.tui.proof.ws.services;
 import static com.tui.proof.ws.utils.JsonUtil.loadJSON;
 import static com.tui.proof.ws.utils.JsonUtil.writeJSON;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,9 @@ import lombok.extern.log4j.Log4j2;
 public class BookingService {
 
 	private BookingEventDispatcher bookingEventDispatcher;
+
+	@Value("${security.jwt.token.repository.folder}")
+	private Path repositoryPath;
 
 	@Autowired
 	public BookingService(
@@ -307,12 +311,12 @@ public class BookingService {
 	@Async
 	private final void writeBookings(
 			List<Booking> bookings) throws Throwable {
-		writeJSON(Paths.get("src/main/resources").toFile(), "Bookings.json", bookings);
+		writeJSON(repositoryPath.resolve(repositoryPath.toAbsolutePath()).toFile(), "Bookings.json", bookings);
 	}
 
 	private final List<Flight> getFlights() throws Throwable {
 		List<Flight> flights = new ArrayList<Flight>();
-		List<Flight> list = Arrays.asList(loadJSON("/List.json", Flight[].class, false));
+		List<Flight> list = Arrays.asList(loadJSON(repositoryPath.resolve(repositoryPath.toAbsolutePath()).toFile(), "List.json", Flight[].class));
 		flights.addAll(Optional.ofNullable(list).orElse(new ArrayList<Flight>()));
 
 		return flights;
@@ -320,7 +324,7 @@ public class BookingService {
 
 	private final List<Booking> getBookings() throws Throwable {
 		List<Booking> bookings = new ArrayList<Booking>();
-		List<Booking> list = Arrays.asList(loadJSON("/Bookings.json", Booking[].class, false));
+		List<Booking> list = Arrays.asList(loadJSON(repositoryPath.resolve(repositoryPath.toAbsolutePath()).toFile(), "Bookings.json", Booking[].class));
 		bookings.addAll(Optional.ofNullable(list).orElse(new ArrayList<Booking>()));
 
 		return bookings;

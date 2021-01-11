@@ -73,19 +73,17 @@ public class JsonUtil {
 		}
 	}
 
-	public static <T> T loadJSON(
+	public static final <T> T loadJSON(
+			File path,
 			String fileName,
-			Class<T> valueType,
-			boolean fromClasspath) throws Exception {
-
+			Class<T> valueType) throws Exception {
 		try {
-			String jsonString = "";
-			if (fromClasspath) {
-				jsonString = getJsonStringFromFileInClassPath(fileName);
-			} else {
-				fileName = "./src/main/resources" + fileName;
-				jsonString = getJsonStringFromFile(fileName);
+			File inputFile = new File(path, fileName);
+			if (!inputFile.exists()) {
+				log.debug("No valid Repository path {}", inputFile.getParentFile().getAbsolutePath());
+				inputFile.getParentFile().mkdirs();
 			}
+			String jsonString = getJsonStringFromFile(inputFile.getAbsolutePath());
 
 			return objectMapper.readValue(jsonString, valueType);
 
@@ -96,7 +94,9 @@ public class JsonUtil {
 
 	private static final String getJsonStringFromFile(
 			String fileName) throws Exception {
-
+		if (!Paths.get(fileName).toFile().exists()) {
+			log.debug("No JSON file {}", fileName);
+		}
 		try (Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {
 			StringBuilder contentBuilder = new StringBuilder();
 			stream.forEach(s -> contentBuilder.append(s));
