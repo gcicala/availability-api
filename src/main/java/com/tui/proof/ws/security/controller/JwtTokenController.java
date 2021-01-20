@@ -3,6 +3,9 @@
  */
 package com.tui.proof.ws.security.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,14 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tui.proof.ws.security.engine.JwtTokenProvider;
+import com.tui.proof.ws.security.model.service.JwtTokenUserDetails;
 import com.tui.proof.ws.security.model.web.JwtTokenRequest;
 import com.tui.proof.ws.security.model.web.JwtTokenResponse;
-import com.tui.proof.ws.security.service.JwtTokenUserDetailsService;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.log4j.Log4j2;
 
 /**
  * 
@@ -42,7 +44,6 @@ import lombok.extern.log4j.Log4j2;
  * @Class : com.tui.proof.ws.security.controller.JwtTokenController
  * 
  */
-@Log4j2
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
@@ -57,15 +58,29 @@ public class JwtTokenController {
 	private JwtTokenProvider jwtTokenProvider;
 
 	@Autowired
-	private JwtTokenUserDetailsService<?> jwtTokenUserDetailsService;
+	private JwtTokenUserDetails<?> jwtTokenUserDetailsService;
 
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@RequestMapping(value = "security/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<JwtTokenResponse> createAuthenticationToken(
 			@RequestBody JwtTokenRequest authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		final UserDetails userDetails = jwtTokenUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 		final String token = jwtTokenProvider.createToken(userDetails.getUsername(), authenticationRequest.getRoles());
 		return ResponseEntity.ok(new JwtTokenResponse(token));
+	}
+
+	@RequestMapping(value = "security/refreshtoken", method = RequestMethod.POST)
+	public ResponseEntity<JwtTokenResponse> refreshAuthenticationToken(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestBody JwtTokenRequest authenticationRequest) throws Throwable {
+		String token = jwtTokenProvider.resolveToken(request);
+		final String refreshtoken = jwtTokenProvider.refreshToken(token);
+
+		response.addHeader("jwttoken", refreshtoken);
+		response.addHeader("authorization", "Bearer " + refreshtoken);
+
+		return ResponseEntity.ok(new JwtTokenResponse(refreshtoken));
 	}
 
 	private void authenticate(

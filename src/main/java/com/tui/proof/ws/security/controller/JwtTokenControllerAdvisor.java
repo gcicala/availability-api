@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tui.proof.ws.models.web.error.ErrorResponse;
 
-import lombok.extern.log4j.Log4j2;
-
 /**
  * 
  * @Author : Giampiero Cicala
@@ -32,7 +30,6 @@ import lombok.extern.log4j.Log4j2;
  * 
  */
 @ControllerAdvice
-@Log4j2
 public class JwtTokenControllerAdvisor {
 
 	@ResponseBody

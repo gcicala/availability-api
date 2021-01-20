@@ -8,6 +8,7 @@ import static com.tui.proof.ws.utils.JsonUtil.writeJSON;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -189,6 +190,48 @@ public class BookingService {
 			writeBookings(bookings);
 
 			result.setResponse(response);
+
+			return result;
+		} catch (Throwable e) {
+			ServiceException thrown = null;
+			if (e instanceof ServiceException) {
+				thrown = (ServiceException) e;
+			} else {
+				thrown = new ServiceException(e.getMessage(), e.getMessage());
+			}
+			throw thrown;
+		}
+	}
+
+	public BookingResponse bookingConfirmation(
+			String bookingId) throws ServiceException {
+		try {
+			LinkedHashMap<String, String> payload = new LinkedHashMap<String, String>();
+			payload.put("bookingId", bookingId);
+			BookingDeleteEvent bookingEvent = new BookingDeleteEvent();
+			bookingEvent.setEventType(EventType.CONFIRMATION_BOOKING);
+			bookingEvent.setId(bookingId);
+			bookingEvent.setPayload(payload);
+			asynchDispatcher(bookingEvent);
+
+			BookingResponse result = new BookingResponse();
+			result.setRequestId(bookingId);
+			result.setResponseId(UUID.randomUUID().toString());
+			result.setEsito(true);
+			result.setEsito(existBookingId(bookingId));
+			if (existBookingId(bookingId)) {
+				Booking booking = findBookingById(bookingId);
+				if (booking.isConfirmed()) {
+					throw new ServiceException("INVALID_BOOKING_ID", "Booking already confirmed");
+				}
+				boolean match = booking.getFlights().stream().allMatch(filter -> filter.getDate().compareTo(LocalDate.now()) >= 0 || filter.getHour().compareTo(LocalTime.now().minusMinutes(15)) < 0);
+				if (!match) {
+					throw new ServiceException("INVALID_FLIGHT_DATE", "Unable to confirm booking the flights is not yet available");
+				}
+				booking.setConfirmed(match);
+				updateBooking(booking);
+				result.setResponse(booking);
+			}
 
 			return result;
 		} catch (Throwable e) {

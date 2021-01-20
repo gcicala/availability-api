@@ -3,8 +3,6 @@
  */
 package com.tui.proof.ws.security.model.entity;
 
-import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -22,9 +20,9 @@ import org.springframework.security.core.GrantedAuthority;
  * @Class : com.tui.proof.ws.security.model.entity.JwtTokenUser
  * 
  */
-public interface JwtTokenUser {
+public interface JwtTokenUser<T extends GrantedAuthority> {
 
 	String getPassword();
 
-	List<? extends GrantedAuthority> getRoles();
+	T[] getRoles();
 }

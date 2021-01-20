@@ -53,7 +53,8 @@ public class JwtTokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Entry points
 		http.authorizeRequests()//
-				.antMatchers("/api/authenticate/**").permitAll()//
+				.antMatchers("/api/security/authenticate/**").permitAll()//
+				.antMatchers("/api/security/refreshtoken/**").permitAll()//
 				// Disallow everything else..
 				.anyRequest().authenticated();
 
@@ -72,7 +73,8 @@ public class JwtTokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 			WebSecurity web) throws Exception {
 		// Allow swagger to be accessed without authentication
 		web.ignoring().antMatchers("/v3/api-docs")//
-				.antMatchers("/api/authenticate/**")//
+				.antMatchers("/api/security/authenticate/**")//
+				.antMatchers("/api/security/refreshtoken/**")//
 				.antMatchers("/swagger-resources/**")//
 				.antMatchers("/swagger-ui.html")//
 				.antMatchers("/configuration/**")//

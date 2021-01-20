@@ -39,4 +39,7 @@ public class Booking {
 
 	@NotEmpty
 	private List<Flight> flights;
+
+	private boolean confirmed;
+
 }

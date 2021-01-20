@@ -95,6 +95,23 @@ public class FooController {
 		return res;
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "/booking/confirmation/{bookingId}")
+	public Response<?> bookingConfiRmation(
+			@PathVariable @Valid String bookingId) throws ServiceException {
+		final String methodName = "bookingConfiRmation";
+
+		if (log.isDebugEnabled()) {
+			log.debug(methodName + " request param bookingId [ {} ] ", "[" + bookingId + "]");
+		}
+		Response<?> res = bookingService.bookingConfirmation(bookingId);
+
+		if (log.isDebugEnabled()) {
+			log.debug(methodName + " Response body [ {} ] ", "[" + formatAsJsonString(res) + "]");
+		}
+
+		return res;
+	}
+
 	@RequestMapping(method = RequestMethod.PUT, value = "/booking/{bookingId}")
 	public Response<?> bookingUpdate(
 			@RequestBody @Valid BookingUpdateEvent bookingBody,

@@ -13,8 +13,12 @@ import java.security.KeyStore.PrivateKeyEntry;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,16 +28,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.tui.proof.ws.exception.ServiceException;
 import com.tui.proof.ws.security.entity.JwtTokenBookingHolderRole;
-import com.tui.proof.ws.security.service.JwtTokenUserDetailsService;
+import com.tui.proof.ws.security.model.service.JwtTokenUserDetails;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -69,10 +75,10 @@ public class JwtTokenProvider {
 	 */
 
 	@Value("${security.jwt.token.expire-length:3600000}")
-	private long validityInMilliseconds = 3600000; // 1h
+	private long validityInMilliseconds; // 1h
 
 	@Autowired
-	private JwtTokenUserDetailsService<?> tokenUserDetails;
+	private JwtTokenUserDetails<?> tokenUserDetails;
 
 	@Value("${security.jwt.token.keystore.file:keystore.pkcs12}")
 	private Path keyStoreFileName;
@@ -136,8 +142,9 @@ public class JwtTokenProvider {
 		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull).collect(Collectors.toList()));
 
-		Date now = new Date();
-		Date validity = new Date(now.getTime() + validityInMilliseconds);
+		Instant nowInstant = Instant.now();
+		Date now = Date.from(nowInstant);
+		Date validity = Date.from(nowInstant.plusMillis(validityInMilliseconds));
 
 		return Jwts.builder()//
 				.setClaims(claims)//
@@ -160,16 +167,44 @@ public class JwtTokenProvider {
 
 	public String resolveToken(
 			HttpServletRequest req) {
-		String bearerToken = req.getHeader("jwtToken");
-		return bearerToken;
+		String token = null;
+		String bearerToken = req.getHeader("Authorization");
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+			token = bearerToken.substring(7, bearerToken.length());
+		}
+		if (!StringUtils.hasText(token)) {
+			token = req.getHeader("jwtToken");
+		}
+		return token;
 	}
 
 	public boolean validateToken(
 			String token) throws ServiceException {
 		try {
-			if (verifySignature)
+			if (verifySignature) {
 				Jwts.parser().setSigningKey(getPublicKey()).parseClaimsJws(token);
+			}
 			return true;
+		} catch (JwtException | IllegalArgumentException e) {
+			e.printStackTrace();
+			throw new ServiceException("Expired or invalid JWT token", "INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public String refreshToken(
+			String token) throws ServiceException {
+		try {
+			List<String> list = Stream.of(Arrays.copyOf(token.split("\\."), 3)).map(action -> new String(Base64.getUrlDecoder().decode(action))).collect(Collectors.toList());
+			Map<String, Object> map = JsonParserFactory.getJsonParser().parseMap(list.get(1));
+			Instant nowInstant = Instant.now();
+			Date now = Date.from(nowInstant);
+			Date refreshDate = Date.from(nowInstant.plusMillis(validityInMilliseconds));
+			return Jwts.builder()//
+					.setClaims(map)//
+					.setIssuedAt(now)//
+					.setExpiration(refreshDate)//
+					.signWith(SignatureAlgorithm.RS512, getPrivateKey())//
+					.compact();
 		} catch (JwtException | IllegalArgumentException e) {
 			e.printStackTrace();
 			throw new ServiceException("Expired or invalid JWT token", "INTERNAL_SERVER_ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -179,18 +214,13 @@ public class JwtTokenProvider {
 	private KeyStore loadKeyStore(
 			InputStream inputStream,
 			char[] KEYSTORE_PASSWORD) throws IOException {
-		try {
+		try (InputStream stream = inputStream) {
 			KeyStore keyStore = KeyStore.getInstance("JKS");
-			keyStore.load(inputStream, KEYSTORE_PASSWORD);
+			keyStore.load(stream, KEYSTORE_PASSWORD);
 			return keyStore;
 		} catch (Exception ex) {
 			log.error(String.format("error loading the keystore [%s]", Stream.of(ex.getStackTrace()).map(stack -> " --> " + stack.toString()).collect(Collectors.joining("\n"))));
 			throw new RuntimeException(ex);
-		} finally {
-			if (inputStream != null) {
-				inputStream.close();
-			}
-
 		}
 	}
 

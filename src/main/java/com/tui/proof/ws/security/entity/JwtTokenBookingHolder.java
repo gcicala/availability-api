@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tui.proof.ws.security.model.entity.JwtTokenUser;
 
 import lombok.Data;
 
@@ -28,7 +29,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JwtTokenBookingHolder {
+public class JwtTokenBookingHolder implements JwtTokenUser<JwtTokenBookingHolderRole> {
 
 	private String jwtTokenBookingholderId;
 	@NotBlank

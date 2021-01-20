@@ -34,6 +34,8 @@ public enum EventType {
 
 	DELETE_BOOKING(ChannelType.DELETE_CHANNEL),
 
+	CONFIRMATION_BOOKING(ChannelType.CONFIRMATION_CHANNEL),
+
 	AVAILABILITY(ChannelType.FIND_CHANNEL);
 
 	private ChannelType channelType;

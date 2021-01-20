@@ -45,7 +45,7 @@ public class JwtTokenControllerTest {
 	private JwtTokenProvider jwtTokenProvider;
 
 	@Mock
-	private JwtTokenUserDetailsService<?> jwtTokenUserDetailsService;
+	private JwtTokenUserDetailsService jwtTokenUserDetailsService;
 
 	@Mock
 	private Logger log;

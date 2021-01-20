@@ -3,18 +3,14 @@
  */
 package com.tui.proof.ws.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -102,26 +98,6 @@ public class JsonUtil {
 			stream.forEach(s -> contentBuilder.append(s));
 			stream.close();
 			return contentBuilder.toString();
-		} catch (Exception ex) {
-			throw ex;
-		}
-
-	}
-
-	private static final String getJsonStringFromFileInClassPath(
-			String fileName) throws Exception {
-		try (InputStream inputStream = TypeReference.class.getResourceAsStream(fileName)) {
-			try (Stream<String> stream = new BufferedReader(new InputStreamReader(inputStream)).lines()) {
-				StringBuilder contentBuilder = new StringBuilder();
-				stream.forEach(s -> contentBuilder.append(s));
-				stream.close();
-				inputStream.close();
-				return contentBuilder.toString();
-			} catch (Exception ex) {
-
-				throw ex;
-			}
-
 		} catch (Exception ex) {
 			throw ex;
 		}
