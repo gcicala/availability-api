@@ -20,13 +20,124 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/authenticate",
+					"raw": "{{basepath}}/api/security/authenticate",
 					"host": [
 						"{{basepath}}"
 					],
 					"path": [
 						"api",
+						"security",
 						"authenticate"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "authenticate",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"tuiflyuser\",\r\n    \"password\":\"tuiflypassword\",\r\n    \"roles\":[\"ROLE_ADMIN\", \"ROLE_CLIENT\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/authenticate",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 10 Jan 2021 19:54:29 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jwttoken\": \"eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDMwODQ2MywiZXhwIjoxNjEwMzEyMDYzfQ.KYjlzM5SSoy9N10wN9ZK0Z4KmCTtjloRUVFl6y0QY7VVdS8agA-_GnAwBQJUxXnZe1HeiBvKkUb1Z7M4kGRfrVn8OE-dUlJk3e9Djzvaz582i6KPG4dkJ1Qvs6vZymIqke9gOdaCfDa161yYHE-Y2TaoaswuUNMX0VSUNg2l4zPfDAWjzhQ2AR4m3waYz5UhtYN9yW4HUqjNGF-qpDWyuxzBFS7fQLBEhUBTNbboyw1cQwa7iq_MAByKihh7zH4JKV4KE1rqsk4R0-tfsN6il41NHRckY66n0H8uoxw3Nj0jmoXE-PWsKJiSgexTE_vbrRX1QTFXkZ4pV5DbotpyEQ\"\n}"
+				}
+			]
+		},
+		{
+			"name": "refreshtoken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDQ0OTUzMSwiZXhwIjoxNjEwNDUzMTMxfQ.n3eHWdTZeWrzKav8ahUOB1Qmze3YR2X06QDP2Qej7R8dfDtFnMBoOfHtWYjQ1QhJIcYeBfolPVv6t-w19eDJUjMeoiUyHCwDvMiK4byHqL2rC-7QtjG3lNg6OpDAERVLthAwToawAygc_eOH951V8WXaP96bBnr60ONIEzoHQJUvOCDuMwjJ_F6yGtV-slS-LKiAwNnNQMPYy8xiivi_WeV1YQGSo52rUCE0t_BUnaAp9TZWXdqEutpeyb6FEUH_q23-xT_sejr2rABO0zhURSDtARtwnsuoUda7MXIinGLIqLHFosVD-gYJfeZnBI4Vknof9owt_zRWs9s-QEIg4A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwttoken",
+						"value": "eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDQ0OTUzMSwiZXhwIjoxNjEwNDUzMTMxfQ.n3eHWdTZeWrzKav8ahUOB1Qmze3YR2X06QDP2Qej7R8dfDtFnMBoOfHtWYjQ1QhJIcYeBfolPVv6t-w19eDJUjMeoiUyHCwDvMiK4byHqL2rC-7QtjG3lNg6OpDAERVLthAwToawAygc_eOH951V8WXaP96bBnr60ONIEzoHQJUvOCDuMwjJ_F6yGtV-slS-LKiAwNnNQMPYy8xiivi_WeV1YQGSo52rUCE0t_BUnaAp9TZWXdqEutpeyb6FEUH_q23-xT_sejr2rABO0zhURSDtARtwnsuoUda7MXIinGLIqLHFosVD-gYJfeZnBI4Vknof9owt_zRWs9s-QEIg4A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"tuiflyuser\",\r\n    \"password\":\"tuiflypassword\",\r\n    \"roles\":[\"ROLE_ADMIN\", \"ROLE_CLIENT\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/security/refreshtoken",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"security",
+						"refreshtoken"
 					]
 				}
 			},
@@ -293,6 +404,135 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"requestId\": \"1\",\n    \"responseId\": \"9a0d315f-62d2-4712-aef8-2b7b7fa0cc2e\",\n    \"response\": {\n        \"bookingId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "booking confirmation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwtToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n    \"payload\":{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basepath}}/api/booking/confirmation/{bookingId}",
+					"host": [
+						"{{basepath}}"
+					],
+					"path": [
+						"api",
+						"booking",
+						"confirmation",
+						"{bookingId}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "booking confirmation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{basepath}}/api/booking/confirmation/a9233217-8ee2-403d-ad89-433c2c3a0f14",
+							"host": [
+								"{{basepath}}"
+							],
+							"path": [
+								"api",
+								"booking",
+								"confirmation",
+								"a9233217-8ee2-403d-ad89-433c2c3a0f14"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 20 Jan 2021 18:24:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"errorCode\": \"Booking already confirmed\",\n    \"errorMessage\": \"INVALID_BOOKING_ID\"\n}"
 				}
 			]
 		},
