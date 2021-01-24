@@ -107,7 +107,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDQ0OTUzMSwiZXhwIjoxNjEwNDUzMTMxfQ.n3eHWdTZeWrzKav8ahUOB1Qmze3YR2X06QDP2Qej7R8dfDtFnMBoOfHtWYjQ1QhJIcYeBfolPVv6t-w19eDJUjMeoiUyHCwDvMiK4byHqL2rC-7QtjG3lNg6OpDAERVLthAwToawAygc_eOH951V8WXaP96bBnr60ONIEzoHQJUvOCDuMwjJ_F6yGtV-slS-LKiAwNnNQMPYy8xiivi_WeV1YQGSo52rUCE0t_BUnaAp9TZWXdqEutpeyb6FEUH_q23-xT_sejr2rABO0zhURSDtARtwnsuoUda7MXIinGLIqLHFosVD-gYJfeZnBI4Vknof9owt_zRWs9s-QEIg4A",
+							"value": "{{jwttoken}}",
 							"type": "string"
 						}
 					]
@@ -116,7 +116,7 @@
 				"header": [
 					{
 						"key": "jwttoken",
-						"value": "eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJ0dWlmbHl1c2VyIiwiYXV0aCI6W3siYXV0aG9yaXR5IjoiUk9MRV9BRE1JTiJ9LHsiYXV0aG9yaXR5IjoiUk9MRV9DTElFTlQifV0sImlhdCI6MTYxMDQ0OTUzMSwiZXhwIjoxNjEwNDUzMTMxfQ.n3eHWdTZeWrzKav8ahUOB1Qmze3YR2X06QDP2Qej7R8dfDtFnMBoOfHtWYjQ1QhJIcYeBfolPVv6t-w19eDJUjMeoiUyHCwDvMiK4byHqL2rC-7QtjG3lNg6OpDAERVLthAwToawAygc_eOH951V8WXaP96bBnr60ONIEzoHQJUvOCDuMwjJ_F6yGtV-slS-LKiAwNnNQMPYy8xiivi_WeV1YQGSo52rUCE0t_BUnaAp9TZWXdqEutpeyb6FEUH_q23-xT_sejr2rABO0zhURSDtARtwnsuoUda7MXIinGLIqLHFosVD-gYJfeZnBI4Vknof9owt_zRWs9s-QEIg4A",
+						"value": "{{jwttoken}}",
 						"type": "text"
 					}
 				],
@@ -212,17 +212,27 @@
 		{
 			"name": "checkavailability",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "jwttoken",
-						"value": "{{jwtToken}}",
+						"value": "{{jwttoken}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"AVAILABILITY\",\r\n\"payload\":{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"currency\":\"EUR\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n}",
+					"raw": "{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"currency\":\"EUR\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -245,10 +255,16 @@
 					"name": "checkavailability",
 					"originalRequest": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "jwttoken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"AVAILABILITY\",\r\n\"payload\":{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"currency\":\"EUR\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n}",
+							"raw": "{\r\n  \"originAirport\": \"Rome\",\r\n  \"destinationAirport\": \"Amsterdam\",\r\n  \"startDate\": \"2020-12-30\",\r\n  \"endDate\": \"2021-01-07\",\r\n  \"currency\":\"EUR\",\r\n  \"paxes\": \r\n    {\r\n      \"infants\": 0,\r\n      \"children\": 0,\r\n      \"adults\": 2\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -283,6 +299,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -292,7 +332,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:27:58 GMT"
+							"value": "Sun, 24 Jan 2021 17:44:25 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -304,13 +344,23 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"1\",\n    \"responseId\": \"8e3cb72a-b797-41e5-9db3-b21b10a8f3be\",\n    \"response\": [\n        {\n            \"company\": \"QatarAirLines\",\n            \"flightNumber\": \"QA9875\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"currency\": \"USD\",\n            \"price\": 180.3\n        },\n        {\n            \"company\": \"Alitalia\",\n            \"flightNumber\": \"AZ7562\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"currency\": \"USD\",\n            \"price\": 180.3\n        }\n    ]\n}"
+					"body": "{\n    \"requestId\": \"1270a634-c36c-4be0-b856-b37ba122722d\",\n    \"responseId\": \"2625d38c-5258-4f4c-8c3b-1cbd7b14e1b3\",\n    \"response\": [\n        {\n            \"company\": \"QatarAirLines\",\n            \"flightNumber\": \"QA9875\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"currency\": \"USD\",\n            \"price\": 180.3\n        },\n        {\n            \"company\": \"Alitalia\",\n            \"flightNumber\": \"AZ7562\",\n            \"date\": \"2020-12-30\",\n            \"hour\": \"18:45\",\n            \"currency\": \"USD\",\n            \"price\": 180.3\n        }\n    ]\n}"
 				}
 			]
 		},
 		{
 			"name": "booking create",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
@@ -321,7 +371,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n    \"payload\":{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
+					"raw": "{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -344,10 +394,16 @@
 					"name": "booking create",
 					"originalRequest": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwtToken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n    \"payload\":{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
+							"raw": "{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -382,6 +438,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -391,7 +471,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:10:43 GMT"
+							"value": "Sun, 24 Jan 2021 17:47:34 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -403,24 +483,34 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"1\",\n    \"responseId\": \"9a0d315f-62d2-4712-aef8-2b7b7fa0cc2e\",\n    \"response\": {\n        \"bookingId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+					"body": "{\n    \"requestId\": \"6b848d58-7640-4c88-af12-8b76997f45fd\",\n    \"responseId\": \"1b93e9a8-dda5-4d59-ac7f-3c93ec6b2cf2\",\n    \"response\": {\n        \"bookingId\": \"2fe7a686-88f0-4ec9-9edf-9962cc971e78\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ],\n        \"confirmed\": false\n    },\n    \"esito\": true\n}"
 				}
 			]
 		},
 		{
 			"name": "booking confirmation",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "jwtToken",
-						"value": "{{jwtToken}}",
+						"value": "{{jwttoken}}",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"CREATE_BOOKING\",\r\n    \"payload\":{\r\n        \"bookingId\": null,\r\n        \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -428,7 +518,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/booking/confirmation/{bookingId}",
+					"raw": "{{basepath}}/api/booking/confirmation/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 					"host": [
 						"{{basepath}}"
 					],
@@ -436,7 +526,7 @@
 						"api",
 						"booking",
 						"confirmation",
-						"{bookingId}"
+						"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 					]
 				}
 			},
@@ -448,7 +538,7 @@
 						"header": [
 							{
 								"key": "jwtToken",
-								"value": "{{jwtToken}}",
+								"value": "{{jwttoken}}",
 								"type": "text"
 							}
 						],
@@ -462,7 +552,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/confirmation/a9233217-8ee2-403d-ad89-433c2c3a0f14",
+							"raw": "{{basepath}}/api/booking/confirmation/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 							"host": [
 								"{{basepath}}"
 							],
@@ -470,7 +560,7 @@
 								"api",
 								"booking",
 								"confirmation",
-								"a9233217-8ee2-403d-ad89-433c2c3a0f14"
+								"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 							]
 						}
 					},
@@ -524,7 +614,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 20 Jan 2021 18:24:46 GMT"
+							"value": "Sun, 24 Jan 2021 17:54:34 GMT"
 						},
 						{
 							"key": "Connection",
@@ -532,7 +622,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"errorCode\": \"Booking already confirmed\",\n    \"errorMessage\": \"INVALID_BOOKING_ID\"\n}"
+					"body": "{\n    \"errorCode\": \"Unable to confirm booking the flights is not yet available\",\n    \"errorMessage\": \"INVALID_FLIGHT_DATE\"\n}"
 				}
 			]
 		},
@@ -542,8 +632,24 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -554,14 +660,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412",
+					"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 					"host": [
 						"{{basepath}}"
 					],
 					"path": [
 						"api",
 						"booking",
-						"a7257ac3-07f4-4e85-98ec-fafb60403412"
+						"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 					]
 				}
 			},
@@ -570,7 +676,13 @@
 					"name": "booking find",
 					"originalRequest": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -581,14 +693,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412",
+							"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 							"host": [
 								"{{basepath}}"
 							],
 							"path": [
 								"api",
 								"booking",
-								"a7257ac3-07f4-4e85-98ec-fafb60403412"
+								"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 							]
 						}
 					},
@@ -609,6 +721,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -618,7 +754,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:11:19 GMT"
+							"value": "Sun, 24 Jan 2021 17:55:09 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -630,18 +766,34 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n    \"responseId\": \"d6742d95-c114-4a2b-89ca-46cae8f6d775\",\n    \"response\": {\n        \"bookingId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+					"body": "{\n    \"requestId\": \"25f3a0f1-1500-40e7-8bb0-8ac25dbea805\",\n    \"responseId\": \"642b5c71-448f-4dd2-b554-e4ffbd11d9fa\",\n    \"response\": {\n        \"bookingId\": \"2fe7a686-88f0-4ec9-9edf-9962cc971e78\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ],\n        \"confirmed\": false\n    },\n    \"esito\": true\n}"
 				}
 			]
 		},
 		{
 			"name": "booking update",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"7695de6b-db9e-401d-a090-6cfb149b0ce1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n\"payload\":{\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        },\r\n        {\r\n            \"company\": \"RyanAir\",\r\n            \"flightNumber\": \"RY7394\",\r\n            \"date\": \"2021-01-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        },\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}\r\n}",
+					"raw": "{\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        },\r\n        {\r\n            \"company\": \"RyanAir\",\r\n            \"flightNumber\": \"RY7394\",\r\n            \"date\": \"2021-01-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        },\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -649,14 +801,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/booking/a9233217-8ee2-403d-ad89-433c2c3a0f14",
+					"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 					"host": [
 						"{{basepath}}"
 					],
 					"path": [
 						"api",
 						"booking",
-						"a9233217-8ee2-403d-ad89-433c2c3a0f14"
+						"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 					]
 				}
 			},
@@ -665,10 +817,16 @@
 					"name": "booking update",
 					"originalRequest": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"7695de6b-db9e-401d-a090-6cfb149b0ce1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n\"payload\":{\r\n    \"bookingId\": \"ABF456\",\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        }\r\n    ]\r\n}\r\n}",
+							"raw": "{\r\n    \"holder\": {\r\n        \"name\": \"Mario\",\r\n        \"lastName\": \"Rossi\",\r\n        \"address\": \"Via Roma 15\",\r\n        \"postalCode\": \"00100\",\r\n        \"country\": \"IT\",\r\n        \"email\": \"mario.rossi@rossi.it\",\r\n        \"telephones\": [\r\n            \"3489668654\",\r\n            \"067896686\"\r\n        ]\r\n    },\r\n    \"flights\": [\r\n        {\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"price\": 250.25\r\n        },\r\n        {\r\n            \"company\": \"RyanAir\",\r\n            \"flightNumber\": \"RY7394\",\r\n            \"date\": \"2021-01-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        },\r\n        {\r\n            \"company\": \"QatarAirLines\",\r\n            \"flightNumber\": \"QA9875\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 180.30\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -676,14 +834,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412",
+							"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 							"host": [
 								"{{basepath}}"
 							],
 							"path": [
 								"api",
 								"booking",
-								"a7257ac3-07f4-4e85-98ec-fafb60403412"
+								"2fe7a686-88f0-4ec9-9edf-9962cc971e78"
 							]
 						}
 					},
@@ -704,6 +862,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -713,7 +895,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:12:28 GMT"
+							"value": "Sun, 24 Jan 2021 17:56:11 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -725,15 +907,31 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n    \"responseId\": \"a899660c-f52c-40ba-b99f-626a034548a0\",\n    \"response\": {\n        \"bookingId\": \"a7257ac3-07f4-4e85-98ec-fafb60403412\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+					"body": "{\n    \"requestId\": \"ec5efde8-4285-40db-ba65-8cb9ddf65b31\",\n    \"responseId\": \"84039286-9014-4133-a27c-524878eda6bd\",\n    \"response\": {\n        \"bookingId\": \"2fe7a686-88f0-4ec9-9edf-9962cc971e78\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"Alitalia\",\n                \"flightNumber\": \"AZ3654\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"price\": 250.25\n            },\n            {\n                \"company\": \"RyanAir\",\n                \"flightNumber\": \"RY7394\",\n                \"date\": \"2021-01-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            },\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ],\n        \"confirmed\": false\n    },\n    \"esito\": true\n}"
 				}
 			]
 		},
 		{
 			"name": "booking delete",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -757,10 +955,16 @@
 			},
 			"response": [
 				{
-					"name": "bookingdelete",
+					"name": "booking delete",
 					"originalRequest": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -771,67 +975,48 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/abf456",
+							"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412",
 							"host": [
 								"{{basepath}}"
 							],
 							"path": [
 								"api",
 								"booking",
-								"abf456"
+								"a7257ac3-07f4-4e85-98ec-fafb60403412"
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Vary",
-							"value": "Origin"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Method"
-						},
-						{
-							"key": "Vary",
-							"value": "Access-Control-Request-Headers"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Mon, 04 Jan 2021 15:53:27 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
+					"_postman_previewlanguage": null,
+					"header": null,
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"abf456\",\n    \"responseId\": \"93afe058-fb19-4ce0-a7eb-d31ee4bbd9f3\",\n    \"response\": true\n}"
+					"body": null
 				}
 			]
 		},
 		{
 			"name": "booking addFlight",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"7695de6b-db9e-401d-a090-6cfb149b0ce1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n    \"bookingId\":\"a9233217-8ee2-403d-ad89-433c2c3a0f14\",\r\n    \"payload\":{\r\n                \"company\": \"QatarAirLines\",\r\n                \"flightNumber\": \"QA9875\",\r\n                \"date\": \"2020-12-30\",\r\n                \"hour\": \"18:45\",\r\n                \"currency\": \"USD\",\r\n                \"price\": 180.30\r\n            }\r\n}",
+					"raw": "{\r\n                \"company\": \"QatarAirLines\",\r\n                \"flightNumber\": \"QA9875\",\r\n                \"date\": \"2020-12-30\",\r\n                \"hour\": \"18:45\",\r\n                \"currency\": \"USD\",\r\n                \"price\": 180.30\r\n            }\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -839,14 +1024,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412/flight",
+					"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78/flight",
 					"host": [
 						"{{basepath}}"
 					],
 					"path": [
 						"api",
 						"booking",
-						"a7257ac3-07f4-4e85-98ec-fafb60403412",
+						"2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 						"flight"
 					]
 				}
@@ -856,10 +1041,16 @@
 					"name": "booking addFlight",
 					"originalRequest": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"7695de6b-db9e-401d-a090-6cfb149b0ce1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n    \"bookingId\":\"a9233217-8ee2-403d-ad89-433c2c3a0f14\",\r\n    \"payload\":{\r\n                \"company\": \"QatarAirLines\",\r\n                \"flightNumber\": \"QA9875\",\r\n                \"date\": \"2020-12-30\",\r\n                \"hour\": \"18:45\",\r\n                \"currency\": \"USD\",\r\n                \"price\": 180.30\r\n            }\r\n}",
+							"raw": "{\r\n                \"company\": \"QatarAirLines\",\r\n                \"flightNumber\": \"QA9875\",\r\n                \"date\": \"2020-12-30\",\r\n                \"hour\": \"18:45\",\r\n                \"currency\": \"USD\",\r\n                \"price\": 180.30\r\n            }\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -867,14 +1058,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/a7257ac3-07f4-4e85-98ec-fafb60403412/flight",
+							"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78/flight",
 							"host": [
 								"{{basepath}}"
 							],
 							"path": [
 								"api",
 								"booking",
-								"a7257ac3-07f4-4e85-98ec-fafb60403412",
+								"2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 								"flight"
 							]
 						}
@@ -896,6 +1087,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -905,7 +1120,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:17:38 GMT"
+							"value": "Sun, 24 Jan 2021 18:02:27 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -917,18 +1132,34 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"7695de6b-db9e-401d-a090-6cfb149b0ce1\",\n    \"responseId\": \"0f6eee1a-6303-41f0-887a-7091850eb320\",\n    \"response\": {\n        \"bookingId\": \"a9233217-8ee2-403d-ad89-433c2c3a0f14\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"RyanAir\",\n                \"flightNumber\": \"RY7394\",\n                \"date\": \"2021-01-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            },\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+					"body": "{\n    \"requestId\": \"afd3a32c-430e-43fc-996a-e67f54960aa4\",\n    \"responseId\": \"697c6b2d-4d9c-41ae-a36c-19ec3f52a9b6\",\n    \"response\": {\n        \"bookingId\": \"2fe7a686-88f0-4ec9-9edf-9962cc971e78\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"Alitalia\",\n                \"flightNumber\": \"AZ3654\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"price\": 250.25\n            },\n            {\n                \"company\": \"RyanAir\",\n                \"flightNumber\": \"RY7394\",\n                \"date\": \"2021-01-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            },\n            {\n                \"company\": \"QatarAirLines\",\n                \"flightNumber\": \"QA9875\",\n                \"date\": \"2020-12-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ],\n        \"confirmed\": false\n    },\n    \"esito\": true\n}"
 				}
 			]
 		},
 		{
 			"name": "booking deleteFlight",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwttoken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "jwtToken",
+						"value": "{{jwttoken}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n    \"bookingId\": \"ABF456\",\r\n    \"payload\":{\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 250.25\r\n    }\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -936,14 +1167,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{basepath}}/api/booking/a9233217-8ee2-403d-ad89-433c2c3a0f14/flight/QA9875",
+					"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78/flight/QA9875",
 					"host": [
 						"{{basepath}}"
 					],
 					"path": [
 						"api",
 						"booking",
-						"a9233217-8ee2-403d-ad89-433c2c3a0f14",
+						"2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 						"flight",
 						"QA9875"
 					]
@@ -954,10 +1185,16 @@
 					"name": "booking deleteFlight",
 					"originalRequest": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "jwtToken",
+								"value": "{{jwttoken}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"1\",\r\n    \"eventType\": \"UPDATE_BOOKING\",\r\n    \"bookingId\": \"ABF456\",\r\n    \"payload\":{\r\n            \"company\": \"Alitalia\",\r\n            \"flightNumber\": \"AZ3654\",\r\n            \"date\": \"2020-12-30\",\r\n            \"hour\": \"18:45\",\r\n            \"currency\": \"USD\",\r\n            \"price\": 250.25\r\n    }\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -965,14 +1202,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{basepath}}/api/booking/a9233217-8ee2-403d-ad89-433c2c3a0f14/flight/QA9875",
+							"raw": "{{basepath}}/api/booking/2fe7a686-88f0-4ec9-9edf-9962cc971e78/flight/QA9875",
 							"host": [
 								"{{basepath}}"
 							],
 							"path": [
 								"api",
 								"booking",
-								"a9233217-8ee2-403d-ad89-433c2c3a0f14",
+								"2fe7a686-88f0-4ec9-9edf-9962cc971e78",
 								"flight",
 								"QA9875"
 							]
@@ -995,6 +1232,30 @@
 							"value": "Access-Control-Request-Headers"
 						},
 						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json"
 						},
@@ -1004,7 +1265,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Thu, 07 Jan 2021 23:16:55 GMT"
+							"value": "Sun, 24 Jan 2021 18:03:45 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -1016,7 +1277,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"requestId\": \"a9233217-8ee2-403d-ad89-433c2c3a0f14\",\n    \"responseId\": \"33926810-70d8-4e2b-bc33-a171b60816b8\",\n    \"response\": {\n        \"bookingId\": \"a9233217-8ee2-403d-ad89-433c2c3a0f14\",\n        \"holder\": {\n            \"name\": \"Mario\",\n            \"lastName\": \"Rossi\",\n            \"address\": \"Via Roma 15\",\n            \"postalCode\": \"00100\",\n            \"country\": \"IT\",\n            \"email\": \"mario.rossi@rossi.it\",\n            \"telephones\": [\n                \"3489668654\",\n                \"067896686\"\n            ]\n        },\n        \"flights\": [\n            {\n                \"company\": \"RyanAir\",\n                \"flightNumber\": \"RY7394\",\n                \"date\": \"2021-01-30\",\n                \"hour\": \"18:45\",\n                \"currency\": \"USD\",\n                \"price\": 180.3\n            }\n        ]\n    },\n    \"esito\": true\n}"
+					"body": "{\n    \"requestId\": \"2fe7a686-88f0-4ec9-9edf-9962cc971e78\",\n    \"responseId\": \"2e7d3a43-25c7-411e-a458-401617fa4e20\",\n    \"esito\": false\n}"
 				}
 			]
 		}

@@ -5,7 +5,7 @@ package com.tui.proof.ws.models.web;
 
 import java.util.List;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,14 +30,14 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Booking {
+public class Booking implements BookingModel {
 
 	private String bookingId;
 
-	@NotEmpty
+	@NotNull(message = "Holder is mandatory")
 	private BookingHolder holder;
 
-	@NotEmpty
+	@NotNull(message = "Flights is mandatory")
 	private List<Flight> flights;
 
 	private boolean confirmed;

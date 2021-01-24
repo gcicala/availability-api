@@ -93,9 +93,9 @@ public class FooControllerTest {
 		availabilityResponse.setRequestId(event.getId());
 		availabilityResponse.setResponseId(UUID.randomUUID().toString());
 
-		Mockito.when(bookingService.checkAvailability(event)).thenReturn(availabilityResponse);
+		Mockito.when(bookingService.checkAvailability(payload)).thenReturn(availabilityResponse);
 
-		Response checkAvailability = fooController.checkAvailability(event);
+		Response checkAvailability = fooController.checkAvailability(payload);
 		assertNotNull(checkAvailability);
 
 	}
@@ -130,8 +130,8 @@ public class FooControllerTest {
 		response.setResponseId(UUID.randomUUID().toString());
 		response.setEsito(true);
 
-		Mockito.when(bookingService.bookingCreate(event)).thenReturn(response);
-		Response createResponse = fooController.bookingCreate(event);
+		Mockito.when(bookingService.bookingCreate(booking)).thenReturn(response);
+		Response createResponse = fooController.bookingCreate(booking);
 		assertNotNull(createResponse);
 	}
 
@@ -164,9 +164,9 @@ public class FooControllerTest {
 		response.setResponseId(UUID.randomUUID().toString());
 		response.setEsito(true);
 
-		Mockito.when(bookingService.bookingUpdate(event, "456FGB")).thenReturn(response);
+		Mockito.when(bookingService.bookingUpdate(booking, "456FGB")).thenReturn(response);
 
-		Response updateResponse = fooController.bookingUpdate(event, "456FGB");
+		Response updateResponse = fooController.bookingUpdate(booking, "456FGB");
 		assertNotNull(updateResponse);
 	}
 

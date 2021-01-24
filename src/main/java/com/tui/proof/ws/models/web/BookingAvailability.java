@@ -37,30 +37,30 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BookingAvailability {
+public class BookingAvailability implements BookingModel {
 
-	@NotBlank
-	@Size(min = 4, max = 15, message = "The Arport accept min 4 max 15 characters")
+	@NotBlank(message = "The origin Airport is mandatory")
+	@Size(min = 4, max = 15, message = "The Airport accept min 4 max 15 characters")
 	private String originAirport;
 
-	@NotBlank
-	@Size(min = 4, max = 15, message = "The Arport accept min 4 max 15 characters")
+	@NotBlank(message = "The destination Airport is mandatory")
+	@Size(min = 4, max = 15, message = "The Airport accept min 4 max 15 characters")
 	private String destinationAirport;
 
-	@NotBlank
+	@NotNull(message = "The Currency is mandatory")
 	private Currency currency;
 
-	@NotNull
+	@NotNull(message = "The startDate is mandatory")
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate startDate;
 
-	@NotNull
+	@NotNull(message = "The endDate is mandatory")
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate endDate;
 
-	@NotNull
+	@NotNull(message = "The Paxe is mandatory")
 	private Paxe paxes;
 
 }

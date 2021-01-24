@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tui.proof.ws.exception.ServiceException;
-import com.tui.proof.ws.messaging.event.BookingAvailabilityEvent;
-import com.tui.proof.ws.messaging.event.BookingCreateEvent;
-import com.tui.proof.ws.messaging.event.BookingFlightUpdateEvent;
-import com.tui.proof.ws.messaging.event.BookingUpdateEvent;
+import com.tui.proof.ws.models.web.Booking;
+import com.tui.proof.ws.models.web.BookingAvailability;
+import com.tui.proof.ws.models.web.Flight;
 import com.tui.proof.ws.models.web.Response;
 import com.tui.proof.ws.services.BookingService;
 
@@ -45,7 +44,7 @@ public class FooController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/availability")
 	public Response<?> checkAvailability(
-			@RequestBody @Valid BookingAvailabilityEvent availabilityRequest) throws ServiceException {
+			@RequestBody @Valid BookingAvailability availabilityRequest) throws ServiceException {
 		final String methodName = "checkAvailability";
 
 		if (log.isDebugEnabled()) {
@@ -80,7 +79,7 @@ public class FooController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/booking")
 	public Response<?> bookingCreate(
-			@RequestBody @Valid BookingCreateEvent booking) throws ServiceException {
+			@RequestBody @Valid Booking booking) throws ServiceException {
 		final String methodName = "bookingCreate";
 
 		if (log.isDebugEnabled()) {
@@ -114,7 +113,7 @@ public class FooController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/booking/{bookingId}")
 	public Response<?> bookingUpdate(
-			@RequestBody @Valid BookingUpdateEvent bookingBody,
+			@RequestBody @Valid Booking bookingBody,
 			@PathVariable @Valid String bookingId) throws ServiceException {
 		final String methodName = "bookingUpdate";
 
@@ -171,14 +170,14 @@ public class FooController {
 	@RequestMapping(method = RequestMethod.PUT, value = "/booking/{bookingId}/flight")
 	public Response<?> bookingAddFlight(
 			@PathVariable @Valid String bookingId,
-			@RequestBody @Valid BookingFlightUpdateEvent flightBody) throws ServiceException {
+			@RequestBody @Valid Flight flightBody) throws ServiceException {
 		final String methodName = "bookingUpdate";
 
 		if (log.isDebugEnabled()) {
 			log.debug(methodName + " request param bookingId [ {} ] body [ {} ] ", "[" + bookingId + "]", "[" + formatAsJsonString(flightBody) + "]");
 		}
 
-		Response<?> res = bookingService.bookingAddFlight(flightBody);
+		Response<?> res = bookingService.bookingAddFlight(bookingId, flightBody);
 
 		if (log.isDebugEnabled()) {
 			log.debug(methodName + " Response<?> body [ {} ] ", "[" + formatAsJsonString(res) + "]");

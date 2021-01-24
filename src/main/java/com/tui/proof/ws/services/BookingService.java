@@ -12,16 +12,18 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.tui.proof.ws.exception.ServiceException;
 import com.tui.proof.ws.messaging.event.BookingAvailabilityEvent;
@@ -36,6 +38,7 @@ import com.tui.proof.ws.models.messaging.EventType;
 import com.tui.proof.ws.models.web.AvailabilityResponse;
 import com.tui.proof.ws.models.web.Booking;
 import com.tui.proof.ws.models.web.BookingAvailability;
+import com.tui.proof.ws.models.web.BookingEventParam;
 import com.tui.proof.ws.models.web.BookingHolder;
 import com.tui.proof.ws.models.web.BookingResponse;
 import com.tui.proof.ws.models.web.Flight;
@@ -60,6 +63,7 @@ import lombok.extern.log4j.Log4j2;
  */
 @Service
 @Log4j2
+@Validated
 public class BookingService {
 
 	private BookingEventDispatcher bookingEventDispatcher;
@@ -74,10 +78,12 @@ public class BookingService {
 	}
 
 	public AvailabilityResponse checkAvailability(
-			BookingAvailabilityEvent availabilityEvent) throws ServiceException {
+			@Valid BookingAvailability bookingAvailability) throws ServiceException {
 		try {
-			asynchDispatcher(availabilityEvent);
-			BookingAvailability bookingAvailability = availabilityEvent.getPayload();
+
+			BookingAvailabilityEvent event = new BookingAvailabilityEvent().createBookingEvent(EventType.AVAILABILITY, bookingAvailability);
+			asynchDispatcher(event);
+
 			String originAirport = bookingAvailability.getOriginAirport();
 			String destinationAirport = bookingAvailability.getDestinationAirport();
 			DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -89,7 +95,7 @@ public class BookingService {
 
 			AvailabilityResponse result = new AvailabilityResponse();
 			result.setResponse(flights);
-			result.setRequestId(availabilityEvent.getId());
+			result.setRequestId(event.getId());
 			result.setResponseId(UUID.randomUUID().toString());
 			return result;
 		} catch (Throwable e) {
@@ -105,20 +111,21 @@ public class BookingService {
 	}
 
 	public BookingResponse bookingUpdate(
-			BookingUpdateEvent bookingBody,
+			Booking bookingBody,
 			String bookingId) throws ServiceException {
 		try {
-			bookingBody.setId(bookingId);
-			asynchDispatcher(bookingBody);
+			bookingBody.setBookingId(bookingId);
+			BookingUpdateEvent event = new BookingUpdateEvent().createBookingEvent(EventType.UPDATE_BOOKING, bookingBody);
+			asynchDispatcher(event);
 
 			BookingResponse result = new BookingResponse();
-			result.setRequestId(bookingBody.getId());
+			result.setRequestId(event.getId());
 			result.setResponseId(UUID.randomUUID().toString());
 			result.setEsito(true);
 			Booking response = findBookingById(bookingId);
-			bookingBody.getPayload().setBookingId(bookingId);
-			response = bookingBody.getPayload();
-			updateBooking(bookingBody.getPayload());
+			bookingBody.setBookingId(bookingId);
+			response = bookingBody;
+			updateBooking(bookingBody);
 			result.setResponse(response);
 
 			return result;
@@ -136,12 +143,11 @@ public class BookingService {
 	public BookingResponse bookingDelete(
 			String bookingId) throws ServiceException {
 		try {
-			LinkedHashMap<String, String> payload = new LinkedHashMap<String, String>();
-			payload.put("bookingId", bookingId);
-			BookingDeleteEvent bookingEvent = new BookingDeleteEvent();
-			bookingEvent.setEventType(EventType.DELETE_BOOKING);
-			bookingEvent.setId(bookingId);
-			bookingEvent.setPayload(payload);
+
+			BookingEventParam payload = new BookingEventParam();
+			payload.setName("bookingId");
+			payload.setValue(bookingId);
+			BookingDeleteEvent bookingEvent = new BookingDeleteEvent().createBookingEvent(EventType.DELETE_BOOKING, payload);
 			asynchDispatcher(bookingEvent);
 
 			BookingResponse result = new BookingResponse();
@@ -166,17 +172,18 @@ public class BookingService {
 	}
 
 	public BookingResponse bookingCreate(
-			BookingCreateEvent bookingBody) throws ServiceException {
+			Booking bookingBody) throws ServiceException {
 		try {
-			asynchDispatcher(bookingBody);
+			BookingCreateEvent event = new BookingCreateEvent().createBookingEvent(EventType.CREATE_BOOKING, bookingBody);
+			asynchDispatcher(event);
 			List<Booking> bookings = getBookings();
 
 			BookingResponse result = new BookingResponse();
-			result.setRequestId(bookingBody.getId());
+			result.setRequestId(event.getId());
 			result.setResponseId(UUID.randomUUID().toString());
 			result.setEsito(true);
 
-			Booking response = bookingBody.getPayload();
+			Booking response = bookingBody;
 			response.setBookingId(UUID.randomUUID().toString());
 
 			BookingHolder holder = response.getHolder();
@@ -206,12 +213,10 @@ public class BookingService {
 	public BookingResponse bookingConfirmation(
 			String bookingId) throws ServiceException {
 		try {
-			LinkedHashMap<String, String> payload = new LinkedHashMap<String, String>();
-			payload.put("bookingId", bookingId);
-			BookingDeleteEvent bookingEvent = new BookingDeleteEvent();
-			bookingEvent.setEventType(EventType.CONFIRMATION_BOOKING);
-			bookingEvent.setId(bookingId);
-			bookingEvent.setPayload(payload);
+			BookingEventParam payload = new BookingEventParam();
+			payload.setName("bookingId");
+			payload.setValue(bookingId);
+			BookingDeleteEvent bookingEvent = new BookingDeleteEvent().createBookingEvent(EventType.CONFIRMATION_BOOKING, payload);
 			asynchDispatcher(bookingEvent);
 
 			BookingResponse result = new BookingResponse();
@@ -248,12 +253,10 @@ public class BookingService {
 	public BookingResponse bookingFind(
 			String bookingId) throws ServiceException {
 		try {
-			LinkedHashMap<String, String> payload = new LinkedHashMap<String, String>();
-			payload.put("bookingId", bookingId);
-			BookingFindEvent bookingEvent = new BookingFindEvent();
-			bookingEvent.setEventType(EventType.FIND_BOOKING);
-			bookingEvent.setId(bookingId);
-			bookingEvent.setPayload(payload);
+			BookingEventParam payload = new BookingEventParam();
+			payload.setName("bookingId");
+			payload.setValue(bookingId);
+			BookingFindEvent bookingEvent = new BookingFindEvent().createBookingEvent(EventType.FIND_BOOKING, payload);
 			asynchDispatcher(bookingEvent);
 
 			BookingResponse result = new BookingResponse();
@@ -277,19 +280,21 @@ public class BookingService {
 	}
 
 	public BookingResponse bookingAddFlight(
-			BookingFlightUpdateEvent lightUpdateEvent) throws ServiceException {
+			String bookingId,
+			Flight flight) throws ServiceException {
 		try {
+			BookingFlightUpdateEvent event = new BookingFlightUpdateEvent().createBookingEvent(EventType.UPDATE_BOOKING_FLIGHT, flight);
+			event.setBookingId(bookingId);
+			asynchDispatcher(event);
 
-			asynchDispatcher(lightUpdateEvent);
+			Booking response = findBookingById(bookingId);
 
-			Booking response = findBookingById(lightUpdateEvent.getBookingId());
-			Flight flight = lightUpdateEvent.getPayload();
 			if (!response.getFlights().stream().anyMatch(fligh -> fligh.getFlightNumber().equals(flight.getFlightNumber()))) {
 				response.getFlights().add(flight);
 				updateBooking(response);
 			}
 			BookingResponse result = new BookingResponse();
-			result.setRequestId(lightUpdateEvent.getId());
+			result.setRequestId(event.getId());
 			result.setResponseId(UUID.randomUUID().toString());
 			result.setEsito(true);
 
@@ -311,12 +316,10 @@ public class BookingService {
 			String bookingId,
 			String flightNumber) throws ServiceException {
 		try {
-			LinkedHashMap<String, String> payload = new LinkedHashMap<String, String>();
-			payload.put("bookingId", bookingId);
-			BookingDeleteEvent bookingEvent = new BookingDeleteEvent();
-			bookingEvent.setEventType(EventType.DELETE_BOOKING);
-			bookingEvent.setId(bookingId);
-			bookingEvent.setPayload(payload);
+			BookingEventParam payload = new BookingEventParam();
+			payload.setName("bookingId");
+			payload.setValue(bookingId);
+			BookingDeleteEvent bookingEvent = new BookingDeleteEvent().createBookingEvent(EventType.DELETE_BOOKING, payload);
 			asynchDispatcher(bookingEvent);
 
 			BookingResponse result = new BookingResponse();

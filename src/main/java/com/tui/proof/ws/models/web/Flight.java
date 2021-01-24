@@ -41,7 +41,7 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Flight {
+public class Flight implements BookingModel {
 	@NotBlank
 	private String company;
 
@@ -60,7 +60,7 @@ public class Flight {
 	@JsonSerialize(using = LocalTimeSerializer.class)
 	private LocalTime hour;
 
-	@NotBlank
+	@NotNull(message = "The Currency is mandatory")
 	private Currency currency;
 
 	@NotNull

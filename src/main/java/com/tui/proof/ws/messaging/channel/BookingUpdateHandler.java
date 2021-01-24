@@ -41,7 +41,6 @@ public class BookingUpdateHandler implements Channel<BookingEvent<?>> {
 		log.debug("Message event {} ChannelType {} payload {}", message.getEventType().name(), message.getEventType().getChannelType().name(), message.getPayload());
 		switch (message.getEventType()) {
 		case UPDATE_BOOKING:
-
 			break;
 		case UPDATE_BOOKING_FLIGHT:
 			BookingFlightUpdateEvent event = (BookingFlightUpdateEvent) message;

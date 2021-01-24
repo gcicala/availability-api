@@ -78,7 +78,7 @@ public class BookingServiceTest {
 		payload.setPaxes(paxes);
 		event.setPayload(payload);
 
-		AvailabilityResponse checkAvailability = bookingService.checkAvailability(event);
+		AvailabilityResponse checkAvailability = bookingService.checkAvailability(payload);
 		assertNotNull(checkAvailability);
 	}
 
@@ -97,7 +97,7 @@ public class BookingServiceTest {
 
 			event.setPayload(booking);
 
-			BookingResponse updateResponse = bookingService.bookingUpdate(event, "456FGB");
+			BookingResponse updateResponse = bookingService.bookingUpdate(booking, "456FGB");
 			assertNotNull(updateResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,7 +132,7 @@ public class BookingServiceTest {
 			Booking booking = createBookingMock();
 			event.setPayload(booking);
 
-			BookingResponse createResponse = bookingService.bookingCreate(event);
+			BookingResponse createResponse = bookingService.bookingCreate(booking);
 			assertNotNull(createResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
