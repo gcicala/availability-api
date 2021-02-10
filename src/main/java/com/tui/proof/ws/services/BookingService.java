@@ -68,13 +68,14 @@ public class BookingService {
 
 	private BookingEventDispatcher bookingEventDispatcher;
 
-	@Value("${security.jwt.token.repository.folder}")
 	private Path repositoryPath;
 
 	@Autowired
 	public BookingService(
-		BookingEventDispatcher bookingEventDispatcher) {
+		BookingEventDispatcher bookingEventDispatcher,
+		@Value("${security.jwt.token.repository.folder}") Path repositoryPath) {
 		this.bookingEventDispatcher = bookingEventDispatcher;
+		this.repositoryPath = repositoryPath;
 	}
 
 	public AvailabilityResponse checkAvailability(
