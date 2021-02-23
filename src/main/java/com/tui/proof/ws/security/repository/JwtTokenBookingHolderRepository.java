@@ -23,6 +23,9 @@ import com.tui.proof.ws.security.entity.JwtTokenBookingHolderRole;
 import com.tui.proof.ws.security.exception.JwtException;
 import com.tui.proof.ws.security.model.repository.JwtTokenRepository;
 
+import lombok.Data;
+import lombok.extern.log4j.Log4j2;
+
 /**
  * 
  * @Author : Giampiero Cicala
@@ -38,7 +41,9 @@ import com.tui.proof.ws.security.model.repository.JwtTokenRepository;
  * @Class : com.tui.proof.ws.security.JwtTokenRepository
  * 
  */
+@Log4j2
 @Component
+@Data
 public class JwtTokenBookingHolderRepository implements JwtTokenRepository<JwtTokenBookingHolder> {
 
 	@Value("${security.jwt.token.repository.folder}")
@@ -48,7 +53,7 @@ public class JwtTokenBookingHolderRepository implements JwtTokenRepository<JwtTo
 	private final void write(
 			List<JwtTokenBookingHolder> holders) throws JwtException {
 		try {
-			writeJSON(repositoryPath.resolve(repositoryPath.toAbsolutePath()).toFile(), getRepositoryClass().getSimpleName() + ".json", holders);
+			writeJSON(getRepositoryPath().resolve(getRepositoryPath().toAbsolutePath()).toFile(), getRepositoryClass().getSimpleName() + ".json", holders);
 		} catch (Exception e) {
 			throw new JwtException(e.getMessage(), "WRITE_REPOSITORY_ERROR");
 		}
@@ -69,7 +74,8 @@ public class JwtTokenBookingHolderRepository implements JwtTokenRepository<JwtTo
 	public final List<JwtTokenBookingHolder> findAll() throws JwtException {
 		List<JwtTokenBookingHolder> jwtTokenBookingHolder = new ArrayList<JwtTokenBookingHolder>();
 		try {
-			jwtTokenBookingHolder.addAll(Optional.ofNullable(Arrays.asList(loadJSON(repositoryPath.resolve(repositoryPath.toAbsolutePath()).toFile(), getRepositoryClass().getSimpleName() + ".json", JwtTokenBookingHolder[].class)))
+			log.debug("Repository Path {}", repositoryPath);
+			jwtTokenBookingHolder.addAll(Optional.ofNullable(Arrays.asList(loadJSON(getRepositoryPath().resolve(getRepositoryPath().toAbsolutePath()).toFile(), getRepositoryClass().getSimpleName() + ".json", JwtTokenBookingHolder[].class)))
 					.orElse(new ArrayList<JwtTokenBookingHolder>()));
 		} catch (Exception e) {
 			throw new JwtException(e.getMessage(), "JWT_FIND_ALL_EXCEPTION");
