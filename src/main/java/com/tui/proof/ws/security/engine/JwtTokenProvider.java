@@ -101,6 +101,7 @@ public class JwtTokenProvider {
 		if (verifySignature) {
 			Path path = keyStoreFileName.resolve(keyStoreFileName.toAbsolutePath());
 			File keyStoreFile = path.toFile();
+			log.info("Keystore file path [" + path + "] ");
 			try (FileInputStream fi = new FileInputStream(keyStoreFile)) {
 				KeyStore keyStore = loadKeyStore(fi, keyStorePassword.toCharArray());
 				log.info("Keystore [" + keyStoreFileName + "] loaded");
